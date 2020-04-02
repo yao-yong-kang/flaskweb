@@ -1,0 +1,3 @@
+安装vscode  在里面下载chiese汉化包 和python
+申请github账号 新建一个仓库  在左上角加号新建仓库 获得ssh码
+
