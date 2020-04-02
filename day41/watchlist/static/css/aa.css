@@ -31,5 +31,5 @@ footer{
 }
 
 .movie-list li:hover{
-    color: #f8f9fa;
+   background-color: #f8f9fa;
 }
