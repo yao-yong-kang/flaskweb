@@ -30,6 +30,27 @@ class Movie(db.Model):
 #视图函数
 @app.route('/')
 def index():
+
+    user=User.query.first() #查询出来用户记录
+    movie=Movie.query.all()
+    return render_template('index.html',user=user,movies=movie)
+
+
+#自定义命令
+#建立空数据库
+@app.cli.command() #注册为命令
+@click.option('--drop',is_flag=True,help='先删除后创建')
+def initdb(drop):
+    if drop:
+        db.drop_all()
+    db.create_all()
+    click.echo('初始化数据库完成')
+
+
+#向空数据库中插入数据
+
+@app.cli.command() #注册为命令
+def forge():
     name='yyk'
     movies=[
         {'title':'奥特曼','year':"2079"},
@@ -40,23 +61,10 @@ def index():
         {'title':'葫芦娃','year':"2009"},
         {'title':'铁甲小宝','year':"1999"},
     ]
-    return render_template('index.html',name=name,movies=movies)
-
-
-#自定义命令
-@app.cli.command() #注册为命令
-@click.option('--drop',is_flag=True,help='先删除后创建')
-def initdb(drop):
-    if drop:
-        db.drop_all()
-    db.create_all()
-    click.echo('初始化数据库完成')
-
-
-    # @app.cli.command()   #注册为命令
-    # @click.option('--drop',is_flag=True,help='先删除再创建')
-    # def initdb(drop):
-    #     if drop:
-    #         db.drop_all()
-    #     db.create_all()
-    #     click.echo('初始化数据库完成')    
+    user=User(name=name)
+    db.session.add(user)
+    for m in movies:
+        movie=Movie(title=m['title'],year=m['year'])
+        db.session.add(movie)
+    db.session.commit()
+    
