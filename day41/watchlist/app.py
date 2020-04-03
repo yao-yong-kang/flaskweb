@@ -67,4 +67,9 @@ def forge():
         movie=Movie(title=m['title'],year=m['year'])
         db.session.add(movie)
     db.session.commit()
-    
+
+#错误处理函数
+@app.errorhandler(404)
+def page_not_find(e):
+    user=User.query.first()
+    return render_template('404.html',user=user)
