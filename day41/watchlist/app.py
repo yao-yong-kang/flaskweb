@@ -31,9 +31,9 @@ class Movie(db.Model):
 @app.route('/')
 def index():
 
-    user=User.query.first() #查询出来用户记录
+    # user=User.query.first() #查询出来用户记录
     movie=Movie.query.all()
-    return render_template('index.html',user=user,movies=movie)
+    return render_template('index.html',movies=movie)
 
 
 #自定义命令
@@ -68,8 +68,14 @@ def forge():
         db.session.add(movie)
     db.session.commit()
 
-#错误处理函数
+#错误内容处理
 @app.errorhandler(404)
 def page_not_find(e):
     user=User.query.first()
     return render_template('404.html',user=user)
+
+#模板上下文处理函数
+@app.context_processor
+def common_user():
+    user=User.query.first()
+    return dict(user=user)
