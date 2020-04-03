@@ -35,10 +35,10 @@ def index():
         {'title':'奥特曼','year':"2079"},
         {'title':'战狼','year':"2104"},
         {'title':'外星人','year':"9999"},
-        {'title':'泰罗奥特曼','year':"2079"},
-        {'title':'舒克和贝塔','year':"2079"},
-        {'title':'奥特曼','year':"2079"},
-        {'title':'奥特曼','year':"2079"},
+        {'title':'无字天书','year':"2079"},
+        {'title':'舒克和贝塔','year':"2001"},
+        {'title':'葫芦娃','year':"2009"},
+        {'title':'铁甲小宝','year':"1999"},
     ]
     return render_template('index.html',name=name,movies=movies)
 
