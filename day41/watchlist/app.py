@@ -1,6 +1,6 @@
 import os,sys
 
-from flask import Flask,url_for,render_template
+from flask import Flask,url_for,render_template,flash,redirect,request
 from flask_sqlalchemy import SQLAlchemy
 import click
 
@@ -12,7 +12,7 @@ else:
 app=Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI']=prefix + os.path.join(app.root_path,'data.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS']=False
-
+app.config['SECRET_KEY']='1903_dev'
 
 
 db=SQLAlchemy(app)
@@ -28,9 +28,22 @@ class Movie(db.Model):
 
 
 #视图函数
-@app.route('/')
+@app.route('/',methods=['POST','GET'])
 def index():
-
+    if request.method=='POST':
+        #获取表单数据
+        title=request.form.get('title')
+        year=request.form.get('year')
+        #验证数据
+        if not title or not year or len(year)>4 or len(title)>60:
+            flash('输入错误')
+            return redirect(url_for('index'))
+        #将数据保存到数据库
+        movie=Movie(title=title,year=year) #创建记录
+        db.session.add(movie)
+        db.session.commit()
+        flash('创建成功')
+        return redirect(url_for('index'))
     # user=User.query.first() #查询出来用户记录
     movie=Movie.query.all()
     return render_template('index.html',movies=movie)

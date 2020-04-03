@@ -11,6 +11,10 @@
 <body>
     <img src="{{url_for('static',filename='img/5.jpg')}}" alt="" class="tp">
     <h2>{{user.name}}</h2>
+    <!-- flash消息 -->
+    {% for massage in get_flashed_messages() %}
+    <div class='alert'> {{ massage }}</div>
+    {% endfor %}
     <nav>
         <ul>
             <li>
