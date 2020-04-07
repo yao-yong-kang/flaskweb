@@ -5,21 +5,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{user.name}}</title>
-<link rel="stylesheet" href="{{url_for('static',filename='css/aa.css')}}">
+<!-- 导入css样式 -->
+<link rel="stylesheet" href="{{url_for('static',filename='css/aa.css')}}"> 
     {% endblock %}
 </head>
 <body>
     <img src="{{url_for('static',filename='img/5.jpg')}}" alt="" class="tp">
     <h2>{{user.name}}</h2>
     <!-- flash消息 -->
-    {% for massage in get_flashed_messages() %}
+    {% for massage in get_flashed_messages() %} 
+    <!-- 获取flash信息 -->
     <div class='alert'> {{ massage }}</div>
     {% endfor %}
-    <nav>
+    <nav>  
         <ul>
             <li>
                 <a href="{{url_for('index')}}">首页</a>
             </li>
+            <li>
+                <a href="{{url_for('login')}}">登录</a>
+            </li>
+            <li>
+                <a href="{{url_for('logout')}}">退出</a>
+            </li>
+            <li >
+                <a  href="{{url_for('setting')}}">设置</a>
+            </span>
         </ul>
     </nav>
         {% block content %} {% endblock %}
