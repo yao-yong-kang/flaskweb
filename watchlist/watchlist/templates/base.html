@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    {% block head %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{user.name}}</title>
+<!-- 导入css样式 -->
+<link rel="stylesheet" href="{{url_for('static',filename='css/aa.css')}}"> 
+    {% endblock %}
+</head>
+<body>
+    <img src="{{url_for('static',filename='img/5.jpg')}}" alt="" class="tp">
+    <h2>{{user.name}}</h2>
+    <!-- flash消息 -->
+    {% for massage in get_flashed_messages() %} 
+    <!-- 获取flash信息 -->
+    <div class='alert'> {{ massage }}</div>
+    {% endfor %}
+    <nav>  
+        <ul>
+            <li>
+                <a href="{{ url_for('index') }}">首页</a>
+            </li>
+            {% if not current_user.is_authenticated %}
+            <li>
+                <a href="{{ url_for('login') }}">登录</a>
+            </li>
+            {% else %}
+            <li>
+                <a href="{{ url_for('login') }}">{{ current_user.name }}</a>
+            </li>
+            {% endif %}
+            {% if current_user.is_authenticated %}
+            <li>
+                <a href="{{ url_for('logout') }}">退出</a>
+            </li>
+            <li>
+                <a href="{{ url_for('setting') }}">设置</a>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
+        {% block content %} {% endblock %}
+        <footer>
+            <small>&copy;2020 &nbsp;&nbsp;<a href="#">1903</a></small>
+        </footer>
+</body>
+</html>
