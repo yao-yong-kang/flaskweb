@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="zh">
 <head>
@@ -5,32 +6,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>传统购物车</title>
     <link href="https://cdn.bootcss.com/twitter-bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
-    <!-- <link href="https://cdn.bootcss.com/twitter-bootstrap/4.4.1/css/bootstrap.css" rel="stylesheet"> -->
     <style>
         .container{
             width: 40%;
-            margin:100px auto;
+            margin: 100px auto;
         }
         .removed{
-            color:gray;
+            color: gray;
         }
         .removed label{
             text-decoration: line-through;
         }
         ul{
-            border:1px solid black;
-            margin-top: 10px;
+            border: 1px solid black;
+            margin-top: 30px;
         }
-        ul li{
+        ul li {
             list-style: none;
         }
     </style>
 </head>
 <body>
-    <div class=container>
+    <div class="container">
         <h2>我的购物车清单</h2>
-        <div>
-            <input type="text" placeholder="请输入你想购买的物品" class="js-new-item form-control">
+        <div class="input-group">
+            <input class="js-new-item form-control" type="text" placeholder="输入你想购买的物品">
             <span class="input-group-btn">
                 <button type="button" class="js-add btn btn-default">添加到购物车</button>
             </span>
@@ -41,25 +41,32 @@
             <li>
                 <div class="checkbox">
                     <label for="">
-                        <input type="checkbox" class="js-item">苹果
+                        <input class="js-item" type="checkbox"> 苹果
                     </label>
                 </div>
             </li>
             <li>
                 <div class="checkbox">
                     <label for="">
-                        <input type="checkbox" class="js-item">香蕉
+                        <input class="js-item" type="checkbox"> 香蕉
                     </label>
                 </div>
             </li>
             <li>
-                <div class="removed">
+                <div class="checkbox">
                     <label for="">
-                        <input type="checkbox" class="js-item">电脑
+                        <input class="js-item" type="checkbox"> 电脑
                     </label>
                 </div>
             </li>
         </ul>
+
+        <!-- 修改标题 -->
+        <div class="footer">
+            <hr>
+            <span>改变你的标题</span>
+            <input type="text" class="js-change-title" value="我的购物车清单">
+        </div>
     </div>
 </body>
 <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
@@ -74,12 +81,25 @@
             }
             $ul = $('ul')
             $li = $('<li>').appendTo($ul)
-            $div = $('<div>').addClass('checkbox').appendTo($li)    
+            $div = $('<div>').addClass('checkbox').appendTo($li)
             $label = $('<label>').appendTo($div)
-            $('<input>').addClass('js-item').attr('type','checkbox').appendTo($label)
+            $('<input>').addClass('js-item').attr('type','checkbox').appendTo($label).click(toggleRemoved)
             $label.append(value)
+            $('.js-new-item').val('');
         }
+
+        function toggleRemoved(ev){
+            // 获取当前点击的对象  closest遍历
+            $(ev.currentTarget).closest('li').toggleClass('removed')
+        }
+
+        function onChangeTitle(){
+            $('h2').text($(".js-change-title").val())
+        }
+
         $(".js-add").click(onAdd)
+        $(".js-item").click(toggleRemoved)
+        $(".js-change-title").keyup(onChangeTitle)
     })
 </script>
 </html>
