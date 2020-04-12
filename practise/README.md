@@ -1,6 +1,6 @@
-# gouwuche
+# practise
 
-> A Vue.js project
+> 购物车vue联系
 
 ## Build Setup
 
