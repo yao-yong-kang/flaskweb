@@ -1,11 +1,12 @@
 <template>
     <div class="slider-wrapper" @mouseover="clearInv" @mouseout="runInv">
         <!-- 四张轮播图 -->
-        <div v-show="nowIndex === index" class="slider-item" v-bind:class="['item'+[index+1]]" v-for="(imgUrl,index) in sliderImgList" v-bind:key="index">
+        <div v-show="nowIndex === index" class="slider-item" v-bind:class="['item'+[index+1]]" v-for="(item,index) in sliderImgList" v-bind:key="index">
             <a href="">
-                <img v-bind:src="imgUrl" alt="">
+                <img v-bind:src="item.imgUrl" alt="">
             </a>
         </div>
+        <h2 class="slider-title">{{sliderImgList[0].title}}</h2>
         <!-- 上一张下一张按钮 -->
         <a v-on:click="preHandler" class="btn pre-btn" href="javascript:void(0)">&lt;</a>
         <a v-on:click="nextHandler" class="btn next-btn" href="javascript:void(0)">&gt;</a>
@@ -22,10 +23,22 @@ export default {
         return {
             nowIndex:0,
             sliderImgList:[
-                require('../assets/3.jpg'),
-                require('../assets/4.png'),
-                require('../assets/5.jpg'),
-                require('../assets/1.jpg')
+                {
+                    imgUrl:require('../assets/3.jpg'),
+                    title:'第一章图'
+                    },
+                {
+                    imgUrl:require('../assets/4.png'),
+                     title:'第二章图'
+                    },
+                    {
+                    imgUrl:require('../assets/5.jpg'),
+                     title:'第三章图'
+                    },
+                    {
+                    imgUrl:require('../assets/1.jpg'),
+                     title:'第四章图'
+                    },
             ]
         }
     },
@@ -126,5 +139,19 @@ export default {
     }
     .next-btn{
         right: 10px;
+    }
+    .slider-title{
+        background: #000000;
+        color: #ffffff;
+        width: 100px;
+        height: 30px;
+        position: absolute;
+        bottom: 10px;
+        left: 10px;
+        z-index: 400;
+        font-size: 20px;
+        text-align: center;
+        line-height: 30px;
+        opacity: 0.6;
     }
 </style>
